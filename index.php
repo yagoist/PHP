@@ -1,28 +1,91 @@
 <?php
 
-// lesson 1, task 1 - DONE
+//// lesson 4, task 1
 
 
-// lesson 1, task 2
+$arrayOne = [5, 7, 8, 15, 5, 2, 3, 34, 9, 10, 78, 95, 43];
 
-$userName = readline('Введите Ваше имя.');
-$userAge = readline('Введите Ваш возраст.');
+$foo = function ($item) :string
+{
+    return $item % 2 === 0 ? 'четное' : 'нечетное';
+};
 
-echo('Вас зовут '.$userName.', вам '.$userAge.' лет.').PHP_EOL;
+var_dump(array_map($foo, $arrayOne));
 
-// lesson 1, task 3
 
-$userTask1 = readline('Какая первая задача стоит перед Вами сегодня?');
-$userTask1Time = (int) readline('Сколько примерно времени эта задача займет?');
-$userTask2 = readline('Какая вторая задача стоит перед Вами сегодня?');
-$userTask2Time = (int)readline('Сколько примерно времени эта задача займет?');
-$userTask3 = readline('Какая третья задача стоит перед Вами сегодня?');
-$userTask3Time = (int)readline('Сколько примерно времени эта задача займет?');
+//// lesson 4, task 2
 
-echo($userName.', сегодня у Вас запланировано 3 приоритетных задачи на день:'.PHP_EOL
-    .'- '.$userTask1.' ('.$userTask1Time.'ч)'.PHP_EOL
-    .'- '.$userTask2.' ('.$userTask2Time.'ч)'.PHP_EOL
-    .'- '.$userTask3.' ('.$userTask3Time.'ч)'.PHP_EOL
-    .'Примерное время выполнения плана = '.($userTask1Time + $userTask2Time + $userTask3Time).' ч.'
 
-).PHP_EOL;
+$arrayOfInteger = [51, 3, 43, 8, 19, 54, 10, 48, 99, 103, 61];
+
+function findMaxMinAvgInt (array $arr) :array
+{
+    $minInteger = $arr[0];
+    $maxInteger = $arr[0];
+    $sumInteger = 0;
+    foreach ($arr as $item) {
+        if ($item < $minInteger) $minInteger = $item;
+        if ($item > $maxInteger) $maxInteger = $item;
+        $sumInteger += $item;
+    }
+    return [$maxInteger, $minInteger, ($sumInteger / count($arr))];
+};
+
+var_dump(findMaxMinAvgInt($arrayOfInteger));
+
+
+//// lesson 4, task 3
+
+
+$box = [
+  [
+      0 => 'Тетрадь',
+      1 => 'Книга',
+      2 => 'Настольная игра',
+      3 => [
+          'Настольная игра',
+          'Настольная игра'
+      ],
+      4 => [
+          [
+              'Ноутбук',
+              'Зарядное устройство'
+          ],
+          [
+              'Компьютерная мышь',
+              'Набор проводов',
+              [
+                  'Фотография',
+                  'Картина'
+              ]
+          ],
+          [
+              'Иструкция',
+              [
+                  'Ключ'
+              ]
+          ]
+      ]
+  ],
+  [
+      0 => 'Пакет кошачего корма',
+      1 => [
+          'Музыкальный плеер',
+          'Книга'
+      ]
+  ]
+];
+
+$answer = false;
+
+function searchItem (string $itemName, array $arrayOfItems): bool
+{
+    global $answer;
+    foreach ($arrayOfItems as $item) {
+        if ($itemName === $item) $answer = true;
+        if (gettype($item) ===  'array') searchItem($itemName, $item);
+  }
+  return $answer;
+}
+
+var_dump(searchItem('Ключ', $box));
