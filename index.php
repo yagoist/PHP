@@ -1,28 +1,27 @@
 <?php
 
-// lesson 1, task 1 - DONE
+declare(strict_types=1);
 
+require 'User.php';
+require 'Task.php';
+require 'TaskService.php';
+require 'Comment.php';
 
-// lesson 1, task 2
+$user1 = new User('Dmitrii', 'Ivanov', 'male');
 
-$userName = readline('Введите Ваше имя.');
-$userAge = readline('Введите Ваш возраст.');
+    $user1
+        ->setAge(22)
+        ->setEmail('divan@mail.ru')
+        ->setIsActive(true);
 
-echo('Вас зовут '.$userName.', вам '.$userAge.' лет.').PHP_EOL;
+$user2 = new User ('Ivan', 'Petrov', 'male');
 
-// lesson 1, task 3
+$task1 = new Task($user1, new DateTime());
 
-$userTask1 = readline('Какая первая задача стоит перед Вами сегодня?');
-$userTask1Time = (int) readline('Сколько примерно времени эта задача займет?');
-$userTask2 = readline('Какая вторая задача стоит перед Вами сегодня?');
-$userTask2Time = (int)readline('Сколько примерно времени эта задача займет?');
-$userTask3 = readline('Какая третья задача стоит перед Вами сегодня?');
-$userTask3Time = (int)readline('Сколько примерно времени эта задача займет?');
+    $task1
+        ->setDescription('Провести поросёнка по огороду и показать ему где хавать, а где какать...')
+        ->markAsDone();
 
-echo($userName.', сегодня у Вас запланировано 3 приоритетных задачи на день:'.PHP_EOL
-    .'- '.$userTask1.' ('.$userTask1Time.'ч)'.PHP_EOL
-    .'- '.$userTask2.' ('.$userTask2Time.'ч)'.PHP_EOL
-    .'- '.$userTask3.' ('.$userTask3Time.'ч)'.PHP_EOL
-    .'Примерное время выполнения плана = '.($userTask1Time + $userTask2Time + $userTask3Time).' ч.'
+    TaskService::addComment($task1,  $user2, 'gthghtjtkrkmfcnv000000');
 
-).PHP_EOL;
+    var_dump($task1);
